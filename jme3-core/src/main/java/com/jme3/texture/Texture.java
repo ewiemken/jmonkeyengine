@@ -36,6 +36,7 @@ import com.jme3.asset.AssetNotFoundException;
 import com.jme3.asset.CloneableSmartAsset;
 import com.jme3.asset.TextureKey;
 import com.jme3.export.*;
+import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.PlaceholderAssets;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -58,8 +59,15 @@ import java.util.logging.Logger;
  */
 public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable {
 
+	
+    protected WrapMode wrapS = WrapMode.EdgeClamp;
+    protected WrapMode wrapT = WrapMode.EdgeClamp;
+    protected WrapMode wrapR = WrapMode.EdgeClamp;
     public enum Type {
 
+    	
+    	
+    	
         /**
          * Two dimensional texture (default). A rectangle.
          */
@@ -153,6 +161,22 @@ public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable
         }
     }
 
+	protected void writeCapsule(JmeExporter e) throws IOException {
+		write(e);
+        OutputCapsule capsule = e.getCapsule(this);
+        capsule.write(wrapS, "wrapS", WrapMode.EdgeClamp);
+        capsule.write(wrapT, "wrapT", WrapMode.EdgeClamp);
+        capsule.write(wrapR, "wrapR", WrapMode.EdgeClamp);
+	}
+	
+	protected void readCapsule(JmeImporter e) throws IOException {
+		read(e);
+        InputCapsule capsule = e.getCapsule(this);
+        wrapS = capsule.readEnum("wrapS", WrapMode.class, WrapMode.EdgeClamp);
+        wrapT = capsule.readEnum("wrapT", WrapMode.class, WrapMode.EdgeClamp);
+        wrapR = capsule.readEnum("wrapR", WrapMode.class, WrapMode.EdgeClamp);
+	}
+	
     public enum MagFilter {
 
         /**

@@ -57,9 +57,7 @@ import java.util.ArrayList;
  */
 public class TextureCubeMap extends Texture {
 
-    private WrapMode wrapS = WrapMode.EdgeClamp;
-    private WrapMode wrapT = WrapMode.EdgeClamp;
-    private WrapMode wrapR = WrapMode.EdgeClamp;
+
 
     /**
      * Face of the Cubemap as described by its directional offset from the
@@ -205,19 +203,12 @@ public class TextureCubeMap extends Texture {
 
     @Override
     public void write(JmeExporter e) throws IOException {
-        super.write(e);
-        OutputCapsule capsule = e.getCapsule(this);
-        capsule.write(wrapS, "wrapS", WrapMode.EdgeClamp);
-        capsule.write(wrapT, "wrapT", WrapMode.EdgeClamp);
-        capsule.write(wrapR, "wrapR", WrapMode.EdgeClamp);
+        super.writeCapsule(e);
     }
 
     @Override
     public void read(JmeImporter e) throws IOException {
-        super.read(e);
-        InputCapsule capsule = e.getCapsule(this);
-        wrapS = capsule.readEnum("wrapS", WrapMode.class, WrapMode.EdgeClamp);
-        wrapT = capsule.readEnum("wrapT", WrapMode.class, WrapMode.EdgeClamp);
-        wrapR = capsule.readEnum("wrapR", WrapMode.class, WrapMode.EdgeClamp);
+        super.readCapsule(e);
     }
+
 }

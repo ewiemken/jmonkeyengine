@@ -208,18 +208,10 @@ public class Texture3D extends Texture {
     @Override
     public void write(JmeExporter e) throws IOException {
         super.write(e);
-        OutputCapsule capsule = e.getCapsule(this);
-        capsule.write(wrapS, "wrapS", WrapMode.EdgeClamp);
-        capsule.write(wrapT, "wrapT", WrapMode.EdgeClamp);
-        capsule.write(wrapR, "wrapR", WrapMode.EdgeClamp);
     }
 
     @Override
     public void read(JmeImporter e) throws IOException {
         super.read(e);
-        InputCapsule capsule = e.getCapsule(this);
-        wrapS = capsule.readEnum("wrapS", WrapMode.class, WrapMode.EdgeClamp);
-        wrapT = capsule.readEnum("wrapT", WrapMode.class, WrapMode.EdgeClamp);
-        wrapR = capsule.readEnum("wrapR", WrapMode.class, WrapMode.EdgeClamp);
     }
 }
